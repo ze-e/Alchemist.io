@@ -12,9 +12,13 @@ public class Player : MonoBehaviour
     Vector3 bgMin;
     Vector3 bgMax;
 
+    Rigidbody2D rb;
+    Vector2 mousePosition;
+
     private void Start()
     {
         GetSceneBoundaries();
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -29,6 +33,14 @@ public class Player : MonoBehaviour
         {
             MoveToTargetPosition();
         }
+
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    private void FixedUpdate()
+    {
+        Vector2 lookDir = mousePosition - rb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
     }
 
     private void SetTargetPosition()

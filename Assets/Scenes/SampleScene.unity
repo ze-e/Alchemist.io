@@ -787,6 +787,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1715506717 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5284813708412926970, guid: 744c92f355236fc49b23bdd222f6318f, type: 3}
+  m_PrefabInstance: {fileID: 3265972011788007581}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1715506718
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715506717}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1938087438
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,19 +887,31 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3748469575299112614, guid: 744c92f355236fc49b23bdd222f6318f, type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3748469575299112614, guid: 744c92f355236fc49b23bdd222f6318f, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 1064381405
-      objectReference: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 108d618ffadd71e48af3d64f01fb8f9a, type: 3}
     - target: {fileID: 5284813708412926970, guid: 744c92f355236fc49b23bdd222f6318f, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5367491083399796188, guid: 744c92f355236fc49b23bdd222f6318f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367491083399796188, guid: 744c92f355236fc49b23bdd222f6318f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7945510834591032346, guid: 744c92f355236fc49b23bdd222f6318f, type: 3}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945510834591032346, guid: 744c92f355236fc49b23bdd222f6318f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945510834591032346, guid: 744c92f355236fc49b23bdd222f6318f, type: 3}
+      propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7945510834591032346, guid: 744c92f355236fc49b23bdd222f6318f, type: 3}

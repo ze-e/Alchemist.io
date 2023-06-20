@@ -6,8 +6,8 @@ public class Manager : MonoBehaviour
     public static Manager Instance { get; private set; }
 
     public int Score { get; private set; }
-    /* UI */
 
+    /* UI */
     public GameObject UI;
 
     private void Awake()
@@ -47,5 +47,14 @@ public class Manager : MonoBehaviour
                 child.gameObject.GetComponentInChildren<TMP_Text>().text = newVal;
             }
         }
+    }
+
+    /* FX */
+    public void ReddenSprite(GameObject gameObject, float val, float maxVal)
+    {
+        // Darken SpriteRenderer based on remaining health
+        SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        float n = val / maxVal;
+        spriteRenderer.color = new Color(spriteRenderer.color.r * n, spriteRenderer.color.g, spriteRenderer.color.b);
     }
 }
