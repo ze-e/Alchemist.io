@@ -82,7 +82,7 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         Manager.Instance.AddScore(10);
-        GameObject drop = Instantiate(dropPrefab, transform);
+        GameObject drop = Instantiate(dropPrefab, transform.position, Quaternion.identity);
         drop.GetComponent<Drop>().AssignType(enemyType);
         if (drop != null) Destroy(gameObject);
     }

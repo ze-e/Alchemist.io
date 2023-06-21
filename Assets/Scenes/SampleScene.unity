@@ -155,7 +155,7 @@ MonoBehaviour:
   bgObject: {fileID: 1515890188}
   enemyPrefab: {fileID: 5161513211229654284, guid: 7aa293b3442f92640bcd885cc9251ff7, type: 3}
   initEnemies: 100
-  spawnInterval: 1
+  spawnInterval: 30
   UI: {fileID: 469496079}
 --- !u!4 &118998296
 Transform:
@@ -878,7 +878,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7945510834591032346, guid: 744c92f355236fc49b23bdd222f6318f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.1
+      value: -1.59
       objectReference: {fileID: 0}
     - target: {fileID: 7945510834591032346, guid: 744c92f355236fc49b23bdd222f6318f, type: 3}
       propertyPath: m_LocalPosition.z
