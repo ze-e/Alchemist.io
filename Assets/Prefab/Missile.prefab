@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -5804513895866675053}
   m_Layer: 0
   m_Name: Missile
-  m_TagString: Untagged
+  m_TagString: Missile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   strength: 1
   range: 2
+  speed: 3
 --- !u!58 &4654244021574776080
 CircleCollider2D:
   m_ObjectHideFlags: 0

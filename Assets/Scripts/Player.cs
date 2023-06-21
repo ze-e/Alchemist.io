@@ -89,7 +89,8 @@ public class Player : MonoBehaviour
     {
         GameObject missile = Instantiate(missilePrefab, transform.position, transform.rotation);
         Rigidbody2D missileRB = missile.GetComponent<Rigidbody2D>();
-        missileRB.velocity = 2f * transform.up;
+        float speed = missile.GetComponent<Missile>().speed;
+        missileRB.velocity = speed * transform.up;
     }
 
     private void DrawCircle()

@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour
         GameObject _gameObject = collision.gameObject;
         if (_gameObject.CompareTag("Missile"))
         {
-            Debug.Log("Missile");
             Damage(_gameObject.GetComponent<Missile>().strength);
             Destroy(_gameObject);
         }
@@ -25,9 +24,9 @@ public class Enemy : MonoBehaviour
 
     void Damage(int by)
     {
-        Debug.Log("dmg");
         health = health - by;
         Manager.Instance.ReddenSprite(gameObject, health, maxHealth);
+        if (health < 0) Die();
     }
 
     void Die()

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7945510834591032346}
   - component: {fileID: 3748469575299112614}
   - component: {fileID: -6494696252144731122}
+  - component: {fileID: 1715506718}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5284813708412926970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.7056595, y: -0.0843723, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5367491083399796188}
   m_Father: {fileID: 0}
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 1064381405
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: 4adeaf2d2b1c7417e89f026626d8264f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 108d618ffadd71e48af3d64f01fb8f9a, type: 3}
   m_Color: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,8 +97,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345ce567895714b4da1f80f4931ffd55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missilePrefab: {fileID: 4746795031077310929, guid: 720c6f1e8d11cb84a8752f8d4b9a7107, type: 3}
   circlePrefab: {fileID: 4649167691405880286, guid: 64b858e43bb20c2448dc9615654a5852, type: 3}
   moveSpeed: 2
+--- !u!50 &1715506718
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5284813708412926970}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &3265972011788007583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,11 +151,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4814156256433101570, guid: 4aa8da3aad948cb4f910a12d61b39a95, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4814156256433101570, guid: 4aa8da3aad948cb4f910a12d61b39a95, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4814156256433101570, guid: 4aa8da3aad948cb4f910a12d61b39a95, type: 3}
       propertyPath: m_LocalPosition.x
