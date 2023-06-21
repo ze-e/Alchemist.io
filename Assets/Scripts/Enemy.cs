@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyType  { Air, Water, Fire, Earth, Aether };
+public enum Element  { Air, Water, Fire, Earth, Aether };
 
 public class Enemy : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     public int minHealth = 5;
     int fullHealth;
     int health;
-    EnemyType enemyType;
+    Element enemyType;
 
     public GameObject dropPrefab;
 
@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
     private void AssignType()
     {
         // Get a random enemy type
-        enemyType = (EnemyType)Random.Range(0, 5);
+        enemyType = (Element)Random.Range(0, 5);
         SetSpriteColor();
     }
 
@@ -41,19 +41,19 @@ public class Enemy : MonoBehaviour
         // Set the sprite color based on the enemy type
         switch (enemyType)
         {
-            case EnemyType.Fire:
+            case Element.Fire:
                 spriteRenderer.color = Color.red;
                 break;
-            case EnemyType.Earth:
-                spriteRenderer.color = Color.black;
+            case Element.Earth:
+                spriteRenderer.color = new Color(1f, 0.65f, 0f);
                 break;
-            case EnemyType.Air:
+            case Element.Air:
                 spriteRenderer.color = Color.white;
                 break;
-            case EnemyType.Water:
+            case Element.Water:
                 spriteRenderer.color = Color.blue;
                 break;
-            case EnemyType.Aether:
+            case Element.Aether:
                 spriteRenderer.color = Color.green;
                 break;
             default:
@@ -81,7 +81,6 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
-        Manager.Instance.AddScore(10);
         GameObject drop = Instantiate(dropPrefab, transform.position, Quaternion.identity);
         drop.GetComponent<Drop>().AssignType(enemyType);
         if (drop != null) Destroy(gameObject);

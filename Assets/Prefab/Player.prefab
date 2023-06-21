@@ -185,8 +185,8 @@ MonoBehaviour:
   moveSpeed: 2
   spriteTransform: {fileID: 1405483411}
   strength: 1
-  range: 1
-  speed: 2
+  range: 2
+  speed: 4
   rapidfire: 1
 --- !u!50 &1715506718
 Rigidbody2D:
@@ -221,7 +221,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da73c22239697c640bfdad44bf1c9d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missilePrefab: {fileID: 4746795031077310929, guid: 720c6f1e8d11cb84a8752f8d4b9a7107, type: 3}
 --- !u!1001 &626696511215128286
 PrefabInstance:
   m_ObjectHideFlags: 0

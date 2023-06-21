@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Drop : MonoBehaviour
 {
-    EnemyType enemyType;
+    Element element;
     SpriteRenderer spriteRenderer;
     public Sprite[] sprites = new Sprite[5];
+    public int val = 10;
 
-    public void AssignType(EnemyType _type)
+    public void AssignType(Element _type)
     {
-        enemyType = _type;
+        element = _type;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[(int)_type];
         SetSpriteColor();
@@ -19,21 +20,21 @@ public class Drop : MonoBehaviour
     private void SetSpriteColor()
     {
         // Set the sprite color based on the enemy type
-        switch (enemyType)
+        switch (element)
         {
-            case EnemyType.Fire:
+            case Element.Fire:
                 spriteRenderer.color = Color.red;
                 break;
-            case EnemyType.Earth:
-                spriteRenderer.color = Color.black;
+            case Element.Earth:
+                spriteRenderer.color = new Color(1f, 0.65f, 0f);
                 break;
-            case EnemyType.Air:
+            case Element.Air:
                 spriteRenderer.color = Color.white;
                 break;
-            case EnemyType.Water:
+            case Element.Water:
                 spriteRenderer.color = Color.blue;
                 break;
-            case EnemyType.Aether:
+            case Element.Aether:
                 spriteRenderer.color = Color.green;
                 break;
             default:
@@ -42,4 +43,13 @@ public class Drop : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameObject _gameObject = collision.gameObject;
+        if (_gameObject.name == "Player")
+        {
+            Manager.Instance.SetElementCount(element, val);
+            Destroy(gameObject);
+        }
+    }
 }

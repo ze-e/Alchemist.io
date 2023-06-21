@@ -1,11 +1,13 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
+using System;
 
 public class Manager : MonoBehaviour
 {
     public static Manager Instance { get; private set; }
-
-    public int Score { get; private set; }
+    
+    private Dictionary<Element, int> elementCounts;
 
     public GameObject bgObject;
     public Bounds bgBounds;
@@ -27,19 +29,37 @@ public class Manager : MonoBehaviour
         }
 
         bgBounds = bgObject.GetComponent<Collider2D>().bounds;
+        ElementManager();
     }
 
-
-    public void AddScore(int value)
+    public void ElementManager()
     {
-        Score += value;
-        UpdateUI("Score", Score.ToString());
+        elementCounts = new Dictionary<Element, int>();
+
+        // Initialize the dictionary with default values
+        foreach (Element element in Enum.GetValues(typeof(Element)))
+        {
+            elementCounts[element] = 0;
+        }
     }
 
-    public void ResetScore()
+    public int GetElementCount(Element element)
     {
-        Score = 0;
-        UpdateUI("Score", Score.ToString());
+        if (elementCounts.ContainsKey(element))
+        {
+            return elementCounts[element];
+        }
+        
+        return 0;
+    }
+
+    public void SetElementCount(Element element, int val)
+    {
+        if (elementCounts.ContainsKey(element))
+        {
+            elementCounts[element] = val;
+            UpdateUI(element.ToString(), val.ToString());
+        }
     }
 
     /* UI */
