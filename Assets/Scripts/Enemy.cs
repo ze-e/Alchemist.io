@@ -86,4 +86,6 @@ public class Enemy : MonoBehaviour
         drop.GetComponent<Drop>().AssignType(enemyType);
         if (drop != null) Destroy(gameObject);
     }
+
 }
+
