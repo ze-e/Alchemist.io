@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
+  minHealth: 5
+  dropPrefab: {fileID: 4796337136562213245, guid: 3c2250bd05cc6c94f8a7a758bd349312, type: 3}
 --- !u!61 &-823080185591103676
 BoxCollider2D:
   m_ObjectHideFlags: 0

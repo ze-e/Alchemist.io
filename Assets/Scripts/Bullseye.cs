@@ -3,8 +3,6 @@ using UnityEngine;
 public class Bullseye : MonoBehaviour
 {
 
-    public GameObject missilePrefab;
-
     private void Update()
     {
         // Update the position of the Bullseye based on the mouse position

@@ -11,7 +11,7 @@ public class Manager : MonoBehaviour
     public GameObject enemyPrefab;
     private Bounds bgBounds;
     public int initEnemies = 100;
-    public float spawnInterval = 1f;
+    public float spawnInterval = 30f;
 
     /* UI */
     public GameObject UI;

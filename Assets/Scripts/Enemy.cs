@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour
     int health;
     EnemyType enemyType;
 
+    public GameObject dropPrefab;
+
     private void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -80,6 +82,8 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         Manager.Instance.AddScore(10);
-        Destroy(gameObject);
+        GameObject drop = Instantiate(dropPrefab, transform);
+        drop.GetComponent<Drop>().AssignType(enemyType);
+        if (drop != null) Destroy(gameObject);
     }
 }
