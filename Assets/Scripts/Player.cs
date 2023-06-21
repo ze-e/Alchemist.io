@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public GameObject missilePrefab;
+
     public GameObject circlePrefab;
     public float moveSpeed = 2f;
 
@@ -23,6 +25,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Shoot();
+        }
         if (Input.GetMouseButtonDown(1))
         {
             SetTargetPosition();
@@ -77,6 +83,13 @@ public class Player : MonoBehaviour
             isMoving = false;
             Destroy(circleInstance);
         }
+    }
+
+    void Shoot()
+    {
+        GameObject missile = Instantiate(missilePrefab, transform.position, transform.rotation);
+        Rigidbody2D missileRB = missile.GetComponent<Rigidbody2D>();
+        missileRB.velocity = 2f * transform.up;
     }
 
     private void DrawCircle()
