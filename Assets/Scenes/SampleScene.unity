@@ -152,6 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d7757bebe089714f86b90763741880c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgObject: {fileID: 1515890188}
+  enemyPrefab: {fileID: 5161513211229654284, guid: 7aa293b3442f92640bcd885cc9251ff7, type: 3}
+  initEnemies: 100
+  spawnInterval: 1
   UI: {fileID: 469496079}
 --- !u!4 &118998296
 Transform:

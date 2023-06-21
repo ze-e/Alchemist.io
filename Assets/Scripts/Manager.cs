@@ -7,6 +7,12 @@ public class Manager : MonoBehaviour
 
     public int Score { get; private set; }
 
+    public GameObject bgObject;
+    public GameObject enemyPrefab;
+    private Bounds bgBounds;
+    public int initEnemies = 100;
+    public float spawnInterval = 1f;
+
     /* UI */
     public GameObject UI;
 
@@ -22,6 +28,40 @@ public class Manager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        bgBounds = bgObject.GetComponent<Collider2D>().bounds;
+    }
+
+    private void Start()
+    {
+        CreateEnemies(initEnemies);
+        InvokeRepeating(nameof(SpawnEnemy), spawnInterval, spawnInterval);
+    }
+
+    public void CreateEnemies(int totalEnemies)
+    {
+        for (int i = 0; i < totalEnemies; i++)
+        {
+            Vector3 randomPosition = GetRandomPositionWithinBounds();
+            Instantiate(enemyPrefab, randomPosition, Quaternion.identity);
+        }
+    }
+
+    private void SpawnEnemy()
+    {
+        Vector3 randomPosition = GetRandomPositionWithinBounds();
+        Instantiate(enemyPrefab, randomPosition, Quaternion.identity);
+    }
+
+    private Vector3 GetRandomPositionWithinBounds()
+    {
+        Vector3 randomPosition = new Vector3(
+            Random.Range(bgBounds.min.x, bgBounds.max.x),
+            Random.Range(bgBounds.min.y, bgBounds.max.y),
+            0f
+        );
+
+        return randomPosition;
     }
 
     public void AddScore(int value)
@@ -55,6 +95,6 @@ public class Manager : MonoBehaviour
         // Darken SpriteRenderer based on remaining health
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         float n = val / maxVal;
-        spriteRenderer.color = new Color(spriteRenderer.color.r * n, spriteRenderer.color.g, spriteRenderer.color.b);
+        spriteRenderer.color = new Color(spriteRenderer.color.r * n, spriteRenderer.color.g * n, spriteRenderer.color.b * n);
     }
 }

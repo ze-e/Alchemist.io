@@ -17,6 +17,12 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     Vector2 mousePosition;
 
+    // Stats
+    public int strength = 1; // earth
+    public float range = .1f; // water
+    public float speed = 2f; // air
+    public int rapidfire = 1; // fire
+
     private void Start()
     {
         GetSceneBoundaries();
@@ -89,8 +95,10 @@ public class Player : MonoBehaviour
     {
         GameObject missile = Instantiate(missilePrefab, transform.position, transform.rotation);
         Rigidbody2D missileRB = missile.GetComponent<Rigidbody2D>();
-        float speed = missile.GetComponent<Missile>().speed;
+        Missile missileScr = missile.GetComponent<Missile>();
         missileRB.velocity = speed * transform.up;
+        missileScr.SetStrength(strength);
+        missileScr.Destroy(range);
     }
 
     private void DrawCircle()

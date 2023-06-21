@@ -2,12 +2,15 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    public int strength = 1;
-    public float range = .1f;
-    public float speed = 2f;
+    public int strength;
 
-    private void Start()
+    public void SetStrength(int _str)
     {
-        Destroy(gameObject, range);
+        strength = _str;
+    }
+
+    public void Destroy(float _range)
+    {
+        Destroy(gameObject, _range);
     }
 }

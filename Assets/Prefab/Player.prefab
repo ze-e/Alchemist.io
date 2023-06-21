@@ -100,6 +100,10 @@ MonoBehaviour:
   missilePrefab: {fileID: 4746795031077310929, guid: 720c6f1e8d11cb84a8752f8d4b9a7107, type: 3}
   circlePrefab: {fileID: 4649167691405880286, guid: 64b858e43bb20c2448dc9615654a5852, type: 3}
   moveSpeed: 2
+  strength: 1
+  range: 1
+  speed: 2
+  rapidfire: 1
 --- !u!50 &1715506718
 Rigidbody2D:
   serializedVersion: 4
