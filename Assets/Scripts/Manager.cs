@@ -53,12 +53,12 @@ public class Manager : MonoBehaviour
         return 0;
     }
 
-    public void SetElementCount(Element element, int val)
+    public void AddElementCount(Element element, int val)
     {
         if (elementCounts.ContainsKey(element))
         {
-            elementCounts[element] = val;
-            UpdateUI(element.ToString(), val.ToString());
+            elementCounts[element] += val;
+            UpdateUI(element.ToString(), elementCounts[element].ToString());
         }
     }
 

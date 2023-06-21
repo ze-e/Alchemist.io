@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     Vector2 mousePosition;
 
+    private LineRenderer lineRenderer;
+
     private Quaternion initialRotation;
     public Transform spriteTransform;
 
@@ -24,20 +26,31 @@ public class Player : MonoBehaviour
     public int strength = 1; // earth
     public float range = .1f; // water
     public float speed = 2f; // air
-    public int rapidfire = 1; // fire
+    public float rapidFire = 1; // fire increment by .1
+
+    float lastFireTime;
+    float maxFireTime = 10;
 
     private void Start()
     {
         GetSceneBoundaries();
         rb = gameObject.GetComponent<Rigidbody2D>();
         initialRotation = transform.rotation;
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.positionCount = 2;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+
+        if ( Input.GetMouseButton(0))
         {
-            Shoot();
+            float timeSinceLast = Time.time - lastFireTime;
+            if(timeSinceLast >= ((maxFireTime - ( 8 + rapidFire))))
+            {
+                Shoot();
+                lastFireTime = Time.time;
+            }
         }
         if (Input.GetMouseButtonDown(1))
         {
@@ -91,6 +104,11 @@ public class Player : MonoBehaviour
 
     private void MoveToTargetPosition()
     {
+        if( lineRenderer.enabled == false) lineRenderer.enabled = true;
+
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, targetPosition);
+
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * moveSpeed);
 
         // Check if the player has reached the target position
@@ -98,6 +116,7 @@ public class Player : MonoBehaviour
         {
             isMoving = false;
             Destroy(circleInstance);
+            lineRenderer.enabled = false;
         }
     }
 
@@ -116,4 +135,6 @@ public class Player : MonoBehaviour
         if(isMoving) Destroy(circleInstance); 
         circleInstance = Instantiate(circlePrefab, targetPosition, Quaternion.identity);
     }
+
+    // TODO: crafting system and inventory
 }

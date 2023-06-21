@@ -48,8 +48,10 @@ public class Drop : MonoBehaviour
         GameObject _gameObject = collision.gameObject;
         if (_gameObject.name == "Player")
         {
-            Manager.Instance.SetElementCount(element, val);
+            Manager.Instance.AddElementCount(element, val);
             Destroy(gameObject);
         }
     }
+
+
 }

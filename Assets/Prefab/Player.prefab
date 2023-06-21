@@ -186,8 +186,8 @@ MonoBehaviour:
   spriteTransform: {fileID: 1405483411}
   strength: 1
   range: 2
-  speed: 4
-  rapidfire: 1
+  speed: 3
+  rapidFire: 10
 --- !u!50 &1715506718
 Rigidbody2D:
   serializedVersion: 4
