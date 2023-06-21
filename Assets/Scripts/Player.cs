@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     Vector2 mousePosition;
 
+    private Quaternion initialRotation;
+    public Transform spriteTransform;
+
     // Stats
     public int strength = 1; // earth
     public float range = .1f; // water
@@ -27,6 +30,7 @@ public class Player : MonoBehaviour
     {
         GetSceneBoundaries();
         rb = gameObject.GetComponent<Rigidbody2D>();
+        initialRotation = transform.rotation;
     }
 
     private void Update()
@@ -54,6 +58,12 @@ public class Player : MonoBehaviour
         Vector2 lookDir = mousePosition - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = angle;
+    }
+
+    private void LateUpdate()
+    {
+        // Reset the rotation of the sprite to the initial rotation
+        spriteTransform.rotation = initialRotation;
     }
 
     private void SetTargetPosition()
