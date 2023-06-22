@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyMissile : MonoBehaviour
 {
     public float speed = 5f;
+    public int strength = 10;
 
     private Vector3 direction;
 

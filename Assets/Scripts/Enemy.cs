@@ -32,8 +32,6 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (enemyType == Element.Fire)
-        {
             float timeSinceLast = Time.time - lastFireTime;
 
             // Check if the player is within the detection radius
@@ -43,7 +41,6 @@ public class Enemy : MonoBehaviour
                 FireMissile();
                 lastFireTime = Time.time;
             }
-        }
     }
 
     private void FireMissile()

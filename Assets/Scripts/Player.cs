@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class Player : MonoBehaviour
 {
     public GameObject missilePrefab;
@@ -31,6 +30,11 @@ public class Player : MonoBehaviour
     float lastFireTime;
     float maxFireTime = 10;
 
+    /* health */
+    public Transform healthBar;
+    public int maxHealth = 100;
+    public int health;
+
     private void Start()
     {
         GetSceneBoundaries();
@@ -38,6 +42,10 @@ public class Player : MonoBehaviour
         initialRotation = transform.rotation;
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
+
+        //health
+        health = maxHealth;
+        healthBar.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -75,8 +83,24 @@ public class Player : MonoBehaviour
 
     private void LateUpdate()
     {
+        FixRotation();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameObject _gameObject = collision.gameObject;
+        if (_gameObject.CompareTag("EnemyMissile"))
+        {
+            Damage(_gameObject.GetComponent<EnemyMissile>().strength);
+            Destroy(_gameObject);
+        }
+    }
+
+    void FixRotation()
+    {
         // Reset the rotation of the sprite to the initial rotation
         spriteTransform.rotation = initialRotation;
+        healthBar.rotation = initialRotation;
     }
 
     private void SetTargetPosition()
@@ -134,6 +158,32 @@ public class Player : MonoBehaviour
     {
         if(isMoving) Destroy(circleInstance); 
         circleInstance = Instantiate(circlePrefab, targetPosition, Quaternion.identity);
+    }
+
+    /* health */
+
+    void Damage(int by)
+    {
+        health -= by;
+        DrawHealth();
+        if (health <= 0) Die();
+        else if (health < maxHealth) healthBar.gameObject.SetActive(true);
+        else healthBar.gameObject.SetActive(false);
+    }
+
+    void Die()
+    {
+        Debug.LogError("GAME OVER");
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+    }
+
+    void DrawHealth()
+    {
+        float healthRatio = (float)health / (float)maxHealth;
+        Transform bar = healthBar.Find("Bar");
+        bar.localScale = new Vector2(healthRatio, bar.localScale.y);
     }
 
     // TODO: crafting system and inventory
