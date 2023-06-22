@@ -16,11 +16,49 @@ public class Enemy : MonoBehaviour
 
     public GameObject dropPrefab;
 
+    GameObject player;
+    public float detectionRadius = 5f;
+    public GameObject missilePrefab;
+
+    float lastFireTime;
+    float maxFireTime = 3;
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         AssignHealth();
         AssignType();
+    }
+
+    private void Update()
+    {
+        if (enemyType == Element.Fire)
+        {
+            float timeSinceLast = Time.time - lastFireTime;
+
+            // Check if the player is within the detection radius
+            if (timeSinceLast >= maxFireTime && Vector3.Distance(transform.position, player.transform.position) <= detectionRadius)
+            {
+                // Fire a missile towards the player
+                FireMissile();
+                lastFireTime = Time.time;
+            }
+        }
+    }
+
+    private void FireMissile()
+    {
+        // Calculate the direction towards the player
+        Vector3 direction = (player.transform.position - transform.position).normalized;
+
+        // Instantiate a missile prefab at the current position of the enemy
+        GameObject missile = Instantiate(missilePrefab, transform.position, Quaternion.identity);
+
+        // Retrieve the Missile script component from the instantiated missile
+        EnemyMissile missileScript = missile.GetComponent<EnemyMissile>();
+
+        // Set the direction for the missile to travel
+        missileScript.SetDirection(direction);
     }
 
     void AssignHealth()
