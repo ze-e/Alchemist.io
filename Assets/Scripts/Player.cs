@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     public Transform spriteTransform;
 
     // Stats
+    public Weapon playerWeapon;
     public int strength = 1; // earth
     public float range = .1f; // water
     public float speed = 2f; // air
@@ -46,6 +47,9 @@ public class Player : MonoBehaviour
         //health
         health = maxHealth;
         healthBar.gameObject.SetActive(false);
+
+        //init weapon
+        playerWeapon = new Weapon(strength, range, speed, rapidFire);
     }
 
     private void Update()
@@ -158,6 +162,20 @@ public class Player : MonoBehaviour
     {
         if(isMoving) Destroy(circleInstance); 
         circleInstance = Instantiate(circlePrefab, targetPosition, Quaternion.identity);
+    }
+
+
+    public void SetStats()
+    {
+         strength = playerWeapon.strength; // earth
+         range = playerWeapon.range; // water
+         speed = playerWeapon.speed; // air
+         rapidFire = playerWeapon.rapidFire; // fire increment by .1
+    }
+
+    public void SetWeapon(Weapon _weapon)
+    {
+        playerWeapon = _weapon;
     }
 
     /* health */
