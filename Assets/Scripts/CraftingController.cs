@@ -78,12 +78,15 @@ public class CraftingController : MonoBehaviour
         Stat key = ConvertStringToStat(_string);
         Element element = GetElementByStat(key);
         int elementVal = Manager.Instance.elementCounts[element];
+
         float newVal = stat[key] + 1;
+        
         if (newVal <= elementVal)
         {
             SetVal(key, newVal);
             UpdateUI(key.ToString(), newVal.ToString());
             SetCost();
+            Debug.Log(key.ToString() +":"+ newVal.ToString());
         }
     }
 
@@ -97,7 +100,9 @@ public class CraftingController : MonoBehaviour
             SetVal(key, newVal );
             UpdateUI(key.ToString(), newVal.ToString());
             SetCost();
+            Debug.Log(key.ToString() +":"+ newVal.ToString());
         }
+
     }
 
     void ResetVals()
@@ -117,7 +122,9 @@ public class CraftingController : MonoBehaviour
 
     public Weapon CraftWeapon()
     {
-        return new Weapon((int)GetVal(Stat.Strength), GetVal(Stat.Range), GetVal(Stat.Speed), GetVal(Stat.Rate));
+        var newWeapon = new Weapon((int)GetVal(Stat.Strength), GetVal(Stat.Range), GetVal(Stat.Speed), GetVal(Stat.Rate));
+        ResetVals();
+        return newWeapon;
     }
 
     public void SetPlayerWeapon()

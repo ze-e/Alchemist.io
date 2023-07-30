@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
             if (timeSinceLast >= maxFireTime && Vector3.Distance(transform.position, player.transform.position) <= detectionRadius)
             {
                 // Fire a missile towards the player
-                FireMissile();
+                //FireMissile();
                 lastFireTime = Time.time;
             }
     }
