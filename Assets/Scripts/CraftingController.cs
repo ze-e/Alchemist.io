@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using System.Linq;
+
 
 public class CraftingController : MonoBehaviour
 {
@@ -23,9 +24,6 @@ public class CraftingController : MonoBehaviour
         { Stat.Cost, Element.Aether }
     };
 
-    /* UI */
-    public GameObject CraftingUI;
-
     Element GetElementByStat(Stat _stat)
     {
         return statElementMap[_stat];
@@ -41,7 +39,7 @@ public class CraftingController : MonoBehaviour
         return (Element)System.Enum.Parse(typeof(Element), _string);
     }
 
-    Stat? GetStatByElement(Element _element)
+    Stat GetStatByElement(Element _element)
     {
         foreach (var pair in statElementMap)
         {
@@ -65,44 +63,52 @@ public class CraftingController : MonoBehaviour
 
     void SetCost()
     {
+        float totalCost = GetCost();
+        SetVal(Stat.Cost, totalCost);
+        Manager.Instance.UpdateUI("Value_Cost", stat[Stat.Cost].ToString(), gameObject);
+    }
+
+    float GetCost()
+    {
         float totalCost = 0;
         foreach (var item in stat)
         {
             if (item.Key != Stat.Cost) totalCost += item.Value;
         }
-        UpdateUI("Cost", stat[Stat.Cost].ToString());
+        return totalCost;
     }
 
     public void IncVal(string _string)
     {
         Stat key = ConvertStringToStat(_string);
         Element element = GetElementByStat(key);
-        int elementVal = Manager.Instance.elementCounts[element];
+        int elementVal = Manager.Instance.GetElementCount(element);
 
-        float newVal = stat[key] + 1;
-        
+        float newVal = stat[key] + 10;
+
         if (newVal <= elementVal)
         {
             SetVal(key, newVal);
-            UpdateUI(key.ToString(), newVal.ToString());
+            Manager.Instance.UpdateUI("Value_" + key.ToString(),  newVal.ToString(), gameObject);
             SetCost();
-            Debug.Log(key.ToString() +":"+ newVal.ToString());
+        }
+        else
+        {
+            Manager.Instance.UpdateUI("Error", "Not Enough " + GetElementByStat(key).ToString(), gameObject);
         }
     }
 
     public void DecVal(string _string)
     {
         Stat key = ConvertStringToStat(_string);
-        float newVal = stat[key] - 1;
+        float newVal = stat[key] - 10;
 
         if (newVal >= 0)
         {
             SetVal(key, newVal );
-            UpdateUI(key.ToString(), newVal.ToString());
+            Manager.Instance.UpdateUI("Value_" + key.ToString(), newVal.ToString(), gameObject);
             SetCost();
-            Debug.Log(key.ToString() +":"+ newVal.ToString());
         }
-
     }
 
     void ResetVals()
@@ -116,15 +122,50 @@ public class CraftingController : MonoBehaviour
         };
         foreach (var item in stat)
         {
-            UpdateUI(item.Key.ToString(), 0.ToString());
+            Manager.Instance.UpdateUI(item.Key.ToString(), 0.ToString(), gameObject);
         }
     }
 
     public Weapon CraftWeapon()
     {
-        var newWeapon = new Weapon((int)GetVal(Stat.Strength), GetVal(Stat.Range), GetVal(Stat.Speed), GetVal(Stat.Rate));
-        ResetVals();
-        return newWeapon;
+        string error = CanCraft();
+        if (error == null)
+        {
+            var newWeapon = new Weapon((int)GetVal(Stat.Strength), GetVal(Stat.Range), GetVal(Stat.Speed), GetVal(Stat.Rate));
+            ResetVals();
+            return newWeapon;
+        }
+
+        else
+        {
+            Manager.Instance.UpdateUI("Error", error, gameObject);
+            return null;
+        }
+    }
+
+    public string CanCraft()
+    {
+        if (GetCost() < Manager.Instance.GetElementCount(Element.Aether))
+        {
+            return "Not Enough Aether";
+        }
+
+        if (stat.Values.Any(value => value == 0))
+        {
+            return "Must use all elements";
+        }
+
+        if (!ElementEquivalency())
+        {
+            return "Fire/Water and Air/Earth must be equivalent";
+        }
+
+        return null;
+    }
+
+    bool ElementEquivalency()
+    {
+        return stat[GetStatByElement(Element.Air)] == stat[GetStatByElement(Element.Earth)] && stat[GetStatByElement(Element.Water)] == stat[GetStatByElement(Element.Fire)];
     }
 
     public void SetPlayerWeapon()
@@ -136,20 +177,6 @@ public class CraftingController : MonoBehaviour
             Player playerScr = playerObject.GetComponent<Player>();
             playerScr.SetWeapon(newWeapon);
             playerScr.SetStats();
-        }
-    }
-
-    /* UI */
-    public void UpdateUI(string key, string newVal)
-    {
-        string UIName = "Value_" + key;
-        Transform[] children = CraftingUI.GetComponentsInChildren<Transform>();
-        foreach (var child in children)
-        {
-            if (child.gameObject.name == UIName)
-            {
-                child.gameObject.GetComponentInChildren<TMP_Text>().text = newVal;
-            }
         }
     }
 }

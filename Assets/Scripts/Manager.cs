@@ -7,7 +7,7 @@ public class Manager : MonoBehaviour
 {
     public static Manager Instance { get; private set; }
     
-    public Dictionary<Element, int> elementCounts;
+    private Dictionary<Element, int> elementCounts;
 
     public GameObject bgObject;
     public Bounds bgBounds;
@@ -31,6 +31,7 @@ public class Manager : MonoBehaviour
         bgBounds = bgObject.GetComponent<Collider2D>().bounds;
         ElementManager();
     }
+
 
     public void ElementManager()
     {
@@ -72,6 +73,21 @@ public class Manager : MonoBehaviour
             {
                 child.gameObject.GetComponentInChildren<TMP_Text>().text = newVal;
             }
+        }
+    }
+
+    public void UpdateUI(string key, string newVal, GameObject UI)
+    {
+        Transform[] children = UI.GetComponentsInChildren<Transform>();
+        foreach (var child in children)
+        {
+            if (child.gameObject.name == "Error") child.gameObject.GetComponentInChildren<TMP_Text>().text = "";
+
+            if (child.gameObject.name == key)
+            {
+                child.gameObject.GetComponentInChildren<TMP_Text>().text = newVal;
+            }
+
         }
     }
 
